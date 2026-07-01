@@ -1,0 +1,14 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pandas==2.2.3
+numpy==2.2.1
+pydantic==2.10.4
+
+# Dùng để load và chạy model Qwen3 Embedding
+torch==2.5.1
+sentence-transformers==3.3.1
+
+# Vector store cho embedding bài báo (Qdrant Search API là điểm truy vấn
+# vector DUY NHẤT của project — không cosine similarity tự viết, không
+# cache .npz, không reranker/CrossEncoder)
+qdrant-client>=1.9.0,<2.0.0

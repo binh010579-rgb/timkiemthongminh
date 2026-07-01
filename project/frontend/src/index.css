@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+}
+
+/*
+  Animation chuyển màu mượt khi đổi theme (sáng/tối) theo prefers-color-scheme.
+  Chỉ áp dụng cho các thuộc tính liên quan tới màu sắc để tránh ảnh hưởng
+  hiệu năng / layout của các thuộc tính khác.
+*/
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-timing-function: ease;
+  transition-duration: 300ms;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(0, -18px) scale(1.04);
+  }
+}
+
+@keyframes float-slow-reverse {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(0, 16px) scale(1.05);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+.animate-float-slow-reverse {
+  animation: float-slow-reverse 11s ease-in-out infinite;
+}
+

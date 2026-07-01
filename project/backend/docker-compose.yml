@@ -1,0 +1,26 @@
+# Chạy Qdrant kèm cấu hình + lưu trữ bền vững cho project này.
+#
+# Cách dùng (từ thư mục backend/):
+#   docker compose up -d
+#
+# Tương đương (nhưng không có config tuỳ chỉnh + không lưu dữ liệu bền
+# vững giữa các lần chạy) với lệnh đơn giản:
+#   docker run -p 6333:6333 qdrant/qdrant
+#
+# Cả hai cách đều hoạt động được với backend (QDRANT_URL mặc định trỏ tới
+# http://localhost:6333, xem app/config.py).
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: news-qdrant
+    ports:
+      - "6333:6333" # REST API
+      - "6334:6334" # gRPC
+    volumes:
+      - ./qdrant/production.yaml:/qdrant/config/production.yaml:ro
+      - qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  qdrant_storage:

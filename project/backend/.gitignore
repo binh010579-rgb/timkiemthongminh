@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+data/qdrant_local/
+data/embedding_state.json

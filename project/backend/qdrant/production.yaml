@@ -1,0 +1,31 @@
+# Cấu hình Qdrant cho project này.
+#
+# File này KHÔNG bắt buộc nếu bạn chỉ chạy Qdrant bằng:
+#   docker run -p 6333:6333 qdrant/qdrant
+# (Qdrant sẽ dùng cấu hình mặc định, vẫn hoạt động bình thường với backend.)
+#
+# File này hữu ích khi bạn muốn tuỳ chỉnh Qdrant (log level, giới hạn bộ
+# nhớ, bật/tắt telemetry...) hoặc khi chạy qua `docker-compose.yml` đi kèm
+# (xem `backend/docker-compose.yml`, đã mount file này vào container tại
+# `/qdrant/config/production.yaml`).
+#
+# Tham khảo đầy đủ các tuỳ chọn tại:
+# https://qdrant.tech/documentation/guides/configuration/
+
+log_level: INFO
+
+service:
+  # Cổng HTTP REST API — phải khớp với QDRANT_URL trong backend (mặc định
+  # http://localhost:6333, xem app/config.py).
+  http_port: 6333
+  # Cổng gRPC (không bắt buộc cho backend này vì dùng qdrant-client qua HTTP).
+  grpc_port: 6334
+  # Tắt thu thập số liệu ẩn danh gửi về Qdrant để chạy local/dev sạch sẽ hơn.
+  enable_tls: false
+
+storage:
+  # Đường dẫn lưu dữ liệu BÊN TRONG container — được mount ra volume ngoài
+  # trong docker-compose.yml để dữ liệu vector không mất khi container bị xoá.
+  storage_path: /qdrant/storage
+
+telemetry_disabled: true
